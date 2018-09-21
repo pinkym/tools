@@ -52,5 +52,4 @@ while True:
 
 # add logic for break.
 # add logic for keyboard status check
-# add time log
 
