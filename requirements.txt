@@ -1,0 +1,2 @@
+pywin32==221
+virtualenv==16.0.0
