@@ -1,9 +1,18 @@
-import win32api, win32con
-
+import win32api
+import win32con
 import time
 import datetime
+import configparser
+import os
 
-time_format = "%Y-%m-%d %H:%M:%S"
+
+config = configparser.ConfigParser()
+conf_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'conf', 'setting')
+config.read(conf_dir)
+
+time_format = config.get("log", "time_format")
+start_time = config.get("robot", "start_time")
+end_time = config.get("robot", "end_time")
 
 
 def click(x, y):
@@ -33,13 +42,11 @@ def time_value(time_str="now"):
         return time.mktime(time.strptime(time_str, time_format))
 
 
-start_time = "09:00:00"
-end_time = "20:36:00"
 last_pos = pos = get_pos()
 while True:
+    time.sleep(120)
     now = time_value()
     if time_value(start_time) < now < time_value(end_time):
-        time.sleep(20)
         pos = get_pos()
         if last_pos == pos:
             print("%s: Last pos %s ; At this moment pos %s; Robot worked." % (time_to_str(now), last_pos, pos))
@@ -52,4 +59,9 @@ while True:
 
 # add logic for break.
 # add logic for keyboard status check
+# config file management
 
+# class ClickRobot(object):
+#
+#
+#
